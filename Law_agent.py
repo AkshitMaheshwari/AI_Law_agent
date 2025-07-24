@@ -34,16 +34,16 @@ with st.sidebar:
     overlap_in = st.sidebar.number_input("Overlap", min_value=1, max_value=1000, value=200)
     st.header("📄 Upload Document")
     uploaded_file = st.file_uploader(
-        "Upload legal document (PDF, DOCX, TXT)", 
-        type=["pdf", "docx", "txt"] 
+        "Upload legal document (PDF)", 
+        type=["pdf"] 
         # accept_multiple_files=True
     )
     if uploaded_file:
         if uploaded_file.name not in st.session_state.processed_files:
             with st.spinner("Processing document..."):
                 try:
-                    with tempfile.NamedTemporaryFile(delete=False) as temp_file:
-                        temp_file.write(uploaded_file.read())
+                    with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as temp_file:
+                        temp_file.write(uploaded_file.getvalue())
                         temp_path = temp_file.name
 
                     st.session_state.knowledge_base = PDFKnowledgeBase(
@@ -55,7 +55,7 @@ with st.sidebar:
                             overlap = overlap_in
                         )
                     )
-                    st.session_state.knowledge_base.load(recreate=True)
+                    st.session_state.knowledge_base.load(recreate=True, upsert=True)
                     st.session_state.processed_files.add(uploaded_file.name)
 
                     st.success("✅Document parsed and added to the knowledge base.")
