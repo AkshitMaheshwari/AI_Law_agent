@@ -11,3 +11,4 @@ validators==0.28.1
 streamlit
 phidata
 google-generativeai
+pysqlite3-binary
