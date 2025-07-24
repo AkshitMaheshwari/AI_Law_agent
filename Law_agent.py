@@ -1,5 +1,9 @@
 import streamlit as st
 import os
+import sys
+import pysqlite3
+# Patch the standard sqlite3 with pysqlite3
+sys.modules["sqlite3"] = pysqlite3
 from phi.agent import Agent
 from phi.model.google import Gemini
 from phi.tools.duckduckgo import DuckDuckGo
