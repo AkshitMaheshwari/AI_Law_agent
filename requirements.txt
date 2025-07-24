@@ -12,3 +12,4 @@ streamlit
 phidata
 google-generativeai
 pysqlite3-binary
+openai
