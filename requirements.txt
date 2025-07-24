@@ -10,4 +10,4 @@ duckduckgo_search==5.3.1b1
 validators==0.28.1
 streamlit
 phidata
-
+google-generativeai
